@@ -1,0 +1,28 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "NODE_ENV=development nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rakenduste-programmeerimine-2017s/rp2017-1-tund-1-ruhm"
+  },
+  "author": "R",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rakenduste-programmeerimine-2017s/rp2017-1-tund-1-ruhm/issues"
+  },
+  "homepage": "https://github.com/rakenduste-programmeerimine-2017s/rp2017-1-tund-1-ruhm#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4"
+  }
+}
