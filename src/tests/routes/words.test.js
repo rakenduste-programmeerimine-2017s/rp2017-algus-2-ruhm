@@ -48,7 +48,14 @@ module.exports = (supertest) => {
       supertest
         .post('/api/words')
         .send({ })
-        .expect(422, done)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(422)
+        .end((err, res) => {
+          if (err) return done(err)
+          expect(res.body.errors.name.msg).to.eql('Name must exist')
+          done()
+        })
     })
 
     it('it should note save new word if name shorter than 2', done => {
