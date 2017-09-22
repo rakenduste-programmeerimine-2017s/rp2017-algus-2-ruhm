@@ -64,8 +64,7 @@ router.put('/:id', [
   const { id } = req.params
   const { name } = req.body
 
-  Word.findOneAndUpdate({ _id: id }, { name }
-  )
+  Word.findOneAndUpdate({ _id: id }, { name })
   .then(() => {
     return res.status(200).send()
   })
