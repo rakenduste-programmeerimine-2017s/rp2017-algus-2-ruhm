@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 require('dotenv').config()
 
-// mongoose.set('debug', true)
+mongoose.set('debug', true)
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
   .then(() => {
