@@ -37,11 +37,11 @@ router.post('/', [
   const errors = validationResult(req)
   if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() })
 
-  console.log(req.body)
+  // console.log(req.body)
   const { name } = req.body
 
   const newWord = new Word({ name })
-  console.log(newWord)
+  // console.log(newWord)
 
   newWord.save()
     .then(word => {
