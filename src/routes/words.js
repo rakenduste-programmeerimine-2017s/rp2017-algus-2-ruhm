@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const { body, validationResult } = require('express-validator/check')
+
 const Word = require('../models/words')
 
 router.get('/', (req, res, next) => {
@@ -27,7 +29,14 @@ router.get('/:id', (req, res, next) => {
   })
 })
 
-router.post('/', (req, res) => {
+router.post('/', [
+  body('name').exists().withMessage('Name must exist'),
+  body('name').isLength({ min: 2 }).withMessage('Name must be at least 2 characters long'),
+  body('name').isAlphanumeric().withMessage('Name must contain only letters and numbers')
+], (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() })
+
   console.log(req.body)
   const { name } = req.body
 
