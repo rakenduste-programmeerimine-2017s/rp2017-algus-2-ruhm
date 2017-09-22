@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 const WordSchema = new Schema(
   {
     name: { type: String, required: true },
-    guessedCount: { type: Number, default: 0 }
+    guessedCount: { type: Number, default: 0 },
+    deleted: { type: Date }
   },
   {
     timestamps: true

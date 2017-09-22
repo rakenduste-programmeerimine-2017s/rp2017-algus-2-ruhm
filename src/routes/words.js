@@ -69,7 +69,17 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
+  const { id } = req.params
 
+  Word.findByIdAndUpdate(id, { deleted: new Date() }
+  )
+  .then(() => {
+    return res.status(200).send()
+  })
+  .catch(err => {
+    console.error(err)
+    return res.status(500).send({error: {msg: 'something went wrong here'}})
+  })
 })
 
 module.exports = router
