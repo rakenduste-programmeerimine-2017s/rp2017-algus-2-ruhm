@@ -27,4 +27,21 @@ router.get('/:id', (req, res, next) => {
   })
 })
 
+router.post('/', (req, res) => {
+  console.log(req.body)
+  const { name } = req.body
+
+  const newWord = new Word({ name })
+  console.log(newWord)
+
+  newWord.save()
+    .then(word => {
+      return res.status(201).send({ word })
+    })
+    .catch(err => {
+      console.error(err)
+      return res.status(500).send({error: {msg: 'something went wrong here'}})
+    })
+})
+
 module.exports = router
