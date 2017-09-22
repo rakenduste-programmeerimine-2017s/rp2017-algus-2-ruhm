@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const TopicSchema = new Schema(
+const WordSchema = new Schema(
   {
     name: { type: String, required: true },
-    viewCount: { type: Number, default: 0 }
+    guessedCount: { type: Number, default: 0 }
   },
   {
     timestamps: true
   }
 )
 
-module.exports = mongoose.model('Topic', TopicSchema)
+module.exports = mongoose.model('Word', WordSchema)

@@ -23,8 +23,8 @@ const app = express()
 
 app.use(morgan('dev'))
 
-const topics = require('./routes/topics')
-app.use('/api/topics', topics)
+const words = require('./routes/words')
+app.use('/api/words', words)
 
 // 404
 app.use((req, res, next) => {

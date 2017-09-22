@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const Topic = require('../models/topics')
+const Word = require('../models/words')
 
 router.get('/', (req, res, next) => {
-  Topic.find({})
-    .then(topics => {
-      return res.json({ topics })
+  Word.find({})
+    .then(words => {
+      return res.json({ words })
     })
     .catch(err => {
       console.error(err)
