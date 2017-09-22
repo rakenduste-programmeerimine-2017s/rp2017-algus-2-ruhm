@@ -53,7 +53,14 @@ router.post('/', [
     })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', [
+  body('name').exists().withMessage('Name must exist'),
+  body('name').isLength({ min: 2 }).withMessage('Name must be at least 2 characters long'),
+  body('name').isAlphanumeric().withMessage('Name must contain only letters and numbers')
+], (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() })
+
   const { id } = req.params
   const { name } = req.body
 
@@ -71,8 +78,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params
 
-  Word.findByIdAndUpdate(id, { deleted: new Date() }
-  )
+  Word.findByIdAndUpdate(id, { deleted: new Date() })
   .then(() => {
     return res.status(200).send()
   })
