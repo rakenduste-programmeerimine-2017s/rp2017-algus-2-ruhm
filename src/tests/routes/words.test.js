@@ -5,8 +5,18 @@ module.exports = (supertest) => {
   describe('/GET', () => {
     it('it should GET all the words', done => {
       supertest
-        .get('/api/words')
-        .expect(200, done)
+      .get('/api/words')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        const { words } = res.body
+        expect(words).to.be.a('array')
+
+        done()
+      })
     })
   })
 
@@ -15,7 +25,23 @@ module.exports = (supertest) => {
       supertest
         .post('/api/words')
         .send({ name: 'tere' })
-        .expect(201, done)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          const { word } = res.body
+          expect(word).to.be.an('object')
+
+          expect(word).to.have.property('_id')
+          expect(word).to.have.property('name')
+          expect(word).to.have.property('guessedCount')
+          expect(word).to.have.property('createdAt')
+          expect(word).to.have.property('updatedAt')
+
+          done()
+        })
     })
 
     it('it should note save new word if no name', done => {
