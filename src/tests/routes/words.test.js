@@ -53,7 +53,7 @@ module.exports = (supertest) => {
         .expect(422)
         .end((err, res) => {
           if (err) return done(err)
-          console.log(res.body)
+          // console.log(res.body)
           expect(res.body.errors.name.msg).to.eql('Name must exist')
           done()
         })
