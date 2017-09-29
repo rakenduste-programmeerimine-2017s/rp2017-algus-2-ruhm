@@ -2,24 +2,6 @@
 const expect = require('chai').expect
 
 module.exports = (supertest) => {
-  describe('/GET', () => {
-    it('it should GET all the words', done => {
-      supertest
-      .get('/api/words')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
-
-        const { words } = res.body
-        expect(words).to.be.a('array')
-
-        done()
-      })
-    })
-  })
-
   describe('/POST', () => {
     it('it should save new word', done => {
       supertest
@@ -71,6 +53,24 @@ module.exports = (supertest) => {
         .post('/api/words')
         .send({ name: 'tere 123 @' })
         .expect(422, done)
+    })
+  })
+
+  describe('/GET', () => {
+    it('it should GET all the words', done => {
+      supertest
+      .get('/api/words')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        const { words } = res.body
+        expect(words).to.be.a('array')
+
+        done()
+      })
     })
   })
 }
