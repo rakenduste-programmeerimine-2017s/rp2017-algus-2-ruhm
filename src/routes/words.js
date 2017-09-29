@@ -4,29 +4,26 @@ const { body, validationResult } = require('express-validator/check')
 
 const Word = require('../models/words')
 
-router.get('/', (req, res, next) => {
-  Word.find({})
-    .then(words => {
-      return res.json({ words })
-    })
-    .catch(err => {
-      console.error(err)
-      return res.status(400)
-    })
+router.get('/', async (req, res, next) => {
+  try {
+    const words = await Word.find({})
+    return res.json({ words })
+  } catch (err) {
+    console.error(err)
+    return res.status(400)
+  }
 })
 
-router.get('/:id', (req, res, next) => {
-  // console.log(req)
-  const { id } = req.params
-  const { sort, filter } = req.query
-
-  console.log(sort, filter)
-
-  return res.json({
-    id,
-    sortOrder: sort,
-    filter
-  })
+router.get('/:id', async (req, res, next) => {
+  try {
+    // console.log(req)
+    const { id } = req.params
+    const word = await Word.findById(id)
+    res.json({ word })
+  } catch (err) {
+    console.error(err)
+    return res.status(400)
+  }
 })
 
 router.post('/', [
