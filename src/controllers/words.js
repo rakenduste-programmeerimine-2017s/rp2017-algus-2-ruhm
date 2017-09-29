@@ -31,9 +31,9 @@ module.exports.postWord = async (req, res, next) => {
 
 module.exports.putWord = async (req, res) => {
   const { id } = req.params
-  const { name } = req.body
+  const { name, test } = req.body
 
-  await Word.findOneAndUpdate({ _id: id }, { name })
+  await Word.findOneAndUpdate({ _id: id }, { name, test })
   return res.status(200).send()
 }
 

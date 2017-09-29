@@ -12,7 +12,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 if (!testEnvironment) app.use(morgan('dev'))
 
+const games = require('./routes/games')
 const words = require('./routes/words')
+
+app.use('/api/games', games)
 app.use('/api/words', words)
 
 // 404

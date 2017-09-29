@@ -15,3 +15,8 @@ module.exports.word = [
   body('name').isAlphanumeric().withMessage('Name must contain only letters and numbers'),
   errorCheck
 ]
+
+module.exports.game = [
+  body('player').exists().withMessage('Player must exist'),
+  errorCheck
+]
