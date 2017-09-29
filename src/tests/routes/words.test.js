@@ -44,7 +44,7 @@ module.exports = (supertest) => {
         })
     })
 
-    it('it should note save new word if no name', done => {
+    it('it should not save new word if no name', done => {
       supertest
         .post('/api/words')
         .send({ })
@@ -53,19 +53,20 @@ module.exports = (supertest) => {
         .expect(422)
         .end((err, res) => {
           if (err) return done(err)
+          console.log(res.body)
           expect(res.body.errors.name.msg).to.eql('Name must exist')
           done()
         })
     })
 
-    it('it should note save new word if name shorter than 2', done => {
+    it('it should not save new word if name shorter than 2', done => {
       supertest
         .post('/api/words')
         .send({ name: 'a' })
         .expect(422, done)
     })
 
-    it('it should note save new word if name is not alphanumerical', done => {
+    it('it should not save new word if name is not alphanumerical', done => {
       supertest
         .post('/api/words')
         .send({ name: 'tere 123 @' })

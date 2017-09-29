@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { body, validationResult } = require('express-validator/check')
+const validate = require('../utils/validate')
 
 const Word = require('../models/words')
 
@@ -26,15 +27,8 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', [
-  body('name').exists().withMessage('Name must exist'),
-  body('name').isLength({ min: 2 }).withMessage('Name must be at least 2 characters long'),
-  body('name').isAlphanumeric().withMessage('Name must contain only letters and numbers')
-], async (req, res) => {
+router.post('/', validate.word, async (req, res) => {
   try {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() })
-
     const { name } = req.body
     const newWord = new Word({ name })
     const word = await newWord.save()
@@ -46,15 +40,8 @@ router.post('/', [
   }
 })
 
-router.put('/:id', [
-  body('name').exists().withMessage('Name must exist'),
-  body('name').isLength({ min: 2 }).withMessage('Name must be at least 2 characters long'),
-  body('name').isAlphanumeric().withMessage('Name must contain only letters and numbers')
-], async (req, res) => {
+router.put('/:id', validate.word, async (req, res) => {
   try {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() })
-
     const { id } = req.params
     const { name } = req.body
 
