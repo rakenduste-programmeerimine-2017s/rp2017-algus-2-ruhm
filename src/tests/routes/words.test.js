@@ -2,6 +2,8 @@
 const expect = require('chai').expect
 
 module.exports = (supertest) => {
+  let savedWord
+
   describe('/POST', () => {
     it('it should save new word', done => {
       supertest
@@ -14,6 +16,8 @@ module.exports = (supertest) => {
           if (err) return done(err)
 
           const { word } = res.body
+          savedWord = word
+
           expect(word).to.be.an('object')
 
           expect(word).to.have.property('_id')
@@ -71,6 +75,50 @@ module.exports = (supertest) => {
 
         done()
       })
+    })
+  })
+
+  describe('/GET:id', () => {
+    it('it  should GET one word by id', done => {
+      supertest
+      .get('/api/words/' + savedWord._id)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        const { word } = res.body
+        expect(word).to.be.an('object')
+
+        done()
+      })
+    })
+  })
+
+  describe('/PUT:id', () => {
+    it('it should update one word by id', done => {
+      supertest
+      .put('/api/words/' + savedWord._id)
+      .send({
+        name: 'uusnimi'
+      })
+      .expect(200, done)
+    })
+
+    it('it should not update word to empty name', done => {
+      supertest
+      .put('/api/words/' + savedWord._id)
+      .send({})
+      .expect(422, done)
+    })
+  })
+
+  describe('/DELETE:id', () => {
+    it('it should delete one word by id', done => {
+      supertest
+      .delete('/api/words/' + savedWord._id)
+      .expect(200, done)
     })
   })
 }
