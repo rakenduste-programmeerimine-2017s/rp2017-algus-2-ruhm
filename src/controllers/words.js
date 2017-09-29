@@ -12,12 +12,21 @@ module.exports.getWord = async (req, res, next) => {
   res.json({ word })
 }
 
-module.exports.postWord = async (req, res) => {
+module.exports.postWord = async (req, res, next) => {
   const { name } = req.body
-  const newWord = new Word({ name })
-  const word = await newWord.save()
-
-  return res.status(201).send({ word })
+  try {
+    const newWord = new Word({ name })
+    const word = await newWord.save()
+    return res.status(201).send({ word })
+  } catch (err) {
+    if (err.code === 11000) {
+      console.log(err.code)
+      return res.status(422).send({
+        errors: { msg: 'Duplicate key' }
+      })
+    }
+    return next(err)
+  }
 }
 
 module.exports.putWord = async (req, res) => {

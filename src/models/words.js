@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const WordSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     guessedCount: { type: Number, default: 0 },
     deleted: { type: Date }
   },
