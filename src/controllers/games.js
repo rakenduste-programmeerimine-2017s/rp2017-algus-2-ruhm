@@ -28,3 +28,14 @@ module.exports.putGame = async (req, res, next) => {
   await Game.findByIdAndUpdate(id, update)
   return res.status(200).send()
 }
+
+module.exports.addWordToGame = async (req, res) => {
+  const { id } = req.params
+  const { word } = req.body
+
+  await Game.findByIdAndUpdate(id, {
+    $push: { words: word }
+  })
+
+  res.status(200).send()
+}
