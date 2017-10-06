@@ -4,6 +4,8 @@
 2. Create config file `.env` in project root
 ```
 APP_PORT=3000
+MONGODB_URI=mongodb://mongoDB/app
+MONGODB_TEST_URI=mongodb://mongoDB/appTests
 ```
 3. Run `npm install` locally for enabling [JS standard](https://standardjs.com/rules.html) 
 4. Complete setup (extra info [Raamat>Seadistamine](https://github.com/rakenduste-programmeerimine-2017s/Raamat/wiki/Seadistamine))
