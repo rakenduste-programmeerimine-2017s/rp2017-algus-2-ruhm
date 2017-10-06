@@ -1,7 +1,9 @@
 const Game = require('../models/games')
 
 module.exports.getGames = async (req, res, next) => {
-  const games = await Game.find({})
+  const games = await Game
+    .find({})
+    .populate('words', 'name -_id')
   return res.json({ games })
 }
 
