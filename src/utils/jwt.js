@@ -38,7 +38,7 @@ module.exports.jwtEnsure = async (req, res, next) => {
     // all good, proceed
     return next()
   } catch (err) {
-    return next(new ServerError())
+    return next(new Error())
   }
 }
 
