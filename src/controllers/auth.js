@@ -1,5 +1,7 @@
 const User = require('../models/user')
 
+const { signToken } = require('../utils/jwt')
+
 module.exports.localLogin = async (req, res) => {
   const { email, password } = req.body
 
@@ -9,7 +11,7 @@ module.exports.localLogin = async (req, res) => {
   const isMatch = await user.comparePassword(password)
   if (!isMatch) { return res.status(400).send({ msg: 'Email or password incorrect' }) }
 
-  return res.json({ token: user._id })
+  return res.json({ token: signToken(user) })
 }
 
 module.exports.localSignup = async (req, res) => {
