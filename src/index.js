@@ -14,9 +14,11 @@ if (!testEnvironment) app.use(morgan('dev'))
 
 const games = require('./routes/games')
 const words = require('./routes/words')
+const auth = require('./routes/auth')
 
 app.use('/api/games', games)
 app.use('/api/words', words)
+app.use('/api/auth', auth)
 
 // 404
 app.use((req, res, next) => {
